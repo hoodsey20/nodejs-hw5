@@ -1,36 +1,27 @@
+const {
+  getUserByUsername,
+  createUser,
+} = require('../../models/db.js');
 
 const post = (req, res) => {
-  res.json({
-    access_token: "access_token",
-    firstName: "firstName",
-    id: "1",
-    image: "",
-    middleName: "middleName",
-    password: "password",
-    permission: {
-      chat: {
-        C: true,
-        D: true,
-        R: true,
-        U: true
-      },
-      news: {
-        C: true,
-        D: true,
-        R: true,
-        U: true
-      },
-      setting: {
-        C: true,
-        D: true,
-        R: true,
-        U: true
+  const { username } = JSON.parse(req.body);
+
+  getUserByUsername(username)
+    .then(user => {
+      if (user) {
+        return res.json({ status: false, msg: 'Такой юзер уже существует' });
       }
-    },
-    permissionId: "permissionId",
-    surName: "surName",
-    username: "username",
-  });
+
+      return createUser(JSON.parse(req.body));
+    })
+    .then(newUser => {
+      console.log('newUser', newUser);
+
+      res.json(newUser);
+    })
+    .catch((err) => res.json({ status: false, msg: err.message }));
+
+
 };
 
 module.exports = {

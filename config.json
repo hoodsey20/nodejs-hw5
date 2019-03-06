@@ -11,5 +11,6 @@
       }
     }
   },
-  "staticPath": "dist"
+  "staticPath": "dist",
+  "productionBD": "mongodb+srv://hoodsey20:Yr5BMbNQ4ud2Fg8@hoodsey20-aoqf1.azure.mongodb.net/loftportal?retryWrites=true"
 }
