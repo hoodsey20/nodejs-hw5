@@ -13,6 +13,7 @@ router.put('/api/updateNews/:id', ctrl.updateNews);
 router.post('/api/login', ctrl.login);
 router.post('/api/saveNewUser', ctrl.saveNewUser);
 router.put('/api/updateUser/:id', ctrl.updateUser);
+router.post('/api/saveUserImage/:id', ctrl.saveUserImage);
 
 router.get('*', (req, res) => {
   res.render('index.html');

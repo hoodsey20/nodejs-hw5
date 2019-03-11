@@ -6,17 +6,12 @@ module.exports.deleteNews = function(id) {
 };
 
 module.exports.updateNews = function(id, data) {
-  // TODO: добавить joi для валидации
-  const { date, text, theme, userId } = data;
-	console.log('TCL: module.exports.updateNews -> theme', theme)
-	console.log('TCL: module.exports.updateNews -> text', text)
-	console.log('TCL: module.exports.updateNews -> date', date)
+  const { date, text, theme } = data;
   return News.findOneAndUpdate({ _id: id }, { date, text, theme });
 };
 
 
 module.exports.createNews = function(data) {
-  // TODO: добавить joi для валидации
   const { date, text, theme, userId } = data;
 
   const NewsItem = new News({
@@ -82,4 +77,11 @@ module.exports.createUser = function(data) {
   });
 
   return User.save();
+};
+
+module.exports.updateUser = function(id, data) {
+  Object.keys(data).forEach(item => {
+    if (!data[item]) delete data[item];
+  });
+  return Users.findOneAndUpdate({ _id: id }, data, { new: true });
 };

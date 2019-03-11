@@ -8,6 +8,7 @@
     "cross-env": "^5.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "formidable": "^1.2.1",
     "mongoose": "^5.4.17",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10"

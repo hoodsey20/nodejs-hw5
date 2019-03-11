@@ -10,6 +10,7 @@ const get = (req, res) => {
       res.json(data);
     })
     .catch(e => {
+      res.status(500);
       res.json({ status: false, msg: `Ошибка сервера: ${e.message}` });
     });
 };

@@ -14,13 +14,11 @@ const signUp = (req, res) => {
 
       return createUser(JSON.parse(req.body));
     })
-    .then(newUser => {
-      const user = newUser.toJSON();
-      delete user.hash;
-      delete user.salt;
-      res.json(user);
-    })
-    .catch((err) => res.json({ status: false, msg: err.message }));
+    .then(newUser => res.json(newUser))
+    .catch((err) => {
+      res.status(500);
+      res.json({ status: false, msg: err.message });
+    });
 };
 
 module.exports = signUp;

@@ -10,20 +10,17 @@ const signIn = (req, res) => {
 
   getUserByUsername(username)
     .then(user => {
-      if (!user) return res.json({ status: false, msg: 'Такого сочетания юзер/пароль нет' });
+      if (!user) throw new Error('Такого сочетания юзер/пароль нет');
 
-      const myUser = user.toJSON();
+      const myUser = user.toObject();
 
-      if (psw.validPassword(myUser, password)) {
-        myUser.access_token = '1';
-        delete myUser.hash;
-        delete myUser.salt;
-        return res.json(myUser);
-      }
-      return res.json({ status: false, msg: 'Такого сочетания юзер/пароль нет' });
+      if (psw.validPassword(myUser, password)) return res.json(myUser);
+
+      throw new Error('Такого сочетания юзер/пароль нет');
     })
-    .catch(() => {
-      res.json({ status: false, msg: 'Ошибка сервера' });
+    .catch(e => {
+      res.status(500);
+      res.json({ status: false, msg: `Ошибка сервера: ${e.message}` });
     });
 };
 

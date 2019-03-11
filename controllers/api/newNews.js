@@ -12,6 +12,7 @@ const addNews = (req, res) => {
       res.json(newsData);
     })
     .catch(e => {
+      res.status(500);
       res.json({ status: false, msg: `Ошибка сервера: ${e.message}` });
     });
 };
