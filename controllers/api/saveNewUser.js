@@ -3,7 +3,7 @@ const {
   createUser,
 } = require('../../models/db.js');
 
-const post = (req, res) => {
+const signUp = (req, res) => {
   const { username } = JSON.parse(req.body);
 
   getUserByUsername(username)
@@ -15,17 +15,14 @@ const post = (req, res) => {
       return createUser(JSON.parse(req.body));
     })
     .then(newUser => {
-      console.log('newUser', newUser);
-
-      res.json(newUser);
+      const user = newUser.toJSON();
+      delete user.hash;
+      delete user.salt;
+      res.json(user);
     })
     .catch((err) => res.json({ status: false, msg: err.message }));
-
-
 };
 
-module.exports = {
-  post
-};
+module.exports = signUp;
 
 

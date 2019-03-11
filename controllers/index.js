@@ -2,6 +2,9 @@ const login = require('./api/login.js');
 const saveNewUser = require('./api/saveNewUser.js');
 const getNews = require('./api/getNews.js');
 const updateUser = require('./api/updateUser.js');
+const newNews = require('./api/newNews.js');
+const deleteNews = require('./api/deleteNews.js');
+const updateNews = require('./api/updateNews.js');
 
 
 module.exports = {
@@ -9,4 +12,7 @@ module.exports = {
   saveNewUser,
   getNews,
   updateUser,
+  newNews,
+  deleteNews,
+  updateNews,
 };
