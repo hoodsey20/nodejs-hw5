@@ -10,7 +10,6 @@ module.exports.updateNews = function(id, data) {
   return News.findOneAndUpdate({ _id: id }, { date, text, theme });
 };
 
-
 module.exports.createNews = function(data) {
   const { date, text, theme, userId } = data;
 
@@ -81,7 +80,16 @@ module.exports.createUser = function(data) {
 
 module.exports.updateUser = function(id, data) {
   Object.keys(data).forEach(item => {
-    if (!data[item]) delete data[item];
+    if (data[item] === undefined) delete data[item];
   });
-  return Users.findOneAndUpdate({ _id: id }, data, { new: true });
+  return Users.findOneAndUpdate(
+    { _id: id },
+    { $set: data },
+    { new: true }
+  );
 };
+
+module.exports.deleteUser = function (id) {
+  return Users.findOneAndRemove({ _id: id });
+};
+

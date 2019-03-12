@@ -40,15 +40,21 @@ const userSchema = new Schema(
 userSchema.virtual('id').get(function(){
   return this._id.toHexString();
 });
+userSchema.virtual('permissionId').get(function(){
+  return this._id.toHexString();
+});
 userSchema.methods.toJSON = function() {
   const obj = this.toObject();
   delete obj.hash;
   delete obj.salt;
+  delete obj._id;
+  delete obj.__v;
   obj.access_token = '1';
   return obj;
 };
 userSchema.set('toJSON', { virtuals: true });
 userSchema.set('toObject', { virtuals: true });
+
 const Users = mongoose.model('user', userSchema);
 
 const newsSchema = new Schema(

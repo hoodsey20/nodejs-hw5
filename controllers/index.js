@@ -6,6 +6,9 @@ const newNews = require('./api/newNews.js');
 const deleteNews = require('./api/deleteNews.js');
 const updateNews = require('./api/updateNews.js');
 const saveUserImage = require('./api/saveUserImage.js');
+const getUsers = require('./api/getUsers.js');
+const deleteUser = require('./api/deleteUser.js');
+const updateUserPermission = require('./api/updateUserPermission.js');
 
 
 module.exports = {
@@ -17,4 +20,7 @@ module.exports = {
   deleteNews,
   updateNews,
   saveUserImage,
+  getUsers,
+  deleteUser,
+  updateUserPermission,
 };
