@@ -2,7 +2,6 @@ const {
   updateUser,
   getUserById,
 } = require('../../models/db.js');
-const psw = require('../../libs/password');
 
 const updateUserData = (req, res) => {
   const data = JSON.parse(req.body);
@@ -10,18 +9,16 @@ const updateUserData = (req, res) => {
   if (password && oldPassword) {
     getUserById(id)
       .then(user => {
-        const myUser = user.toObject();
-        if (psw.validPassword(myUser, oldPassword)) {
-          const pass = psw.setPassword(password);
-          const hash = pass.hash;
-          const salt = pass.salt;
-          return updateUser(id, {
-            firstName,
-            middleName,
-            surName,
-            hash,
-            salt,
-          });
+        if (user.validPassword(oldPassword)) {
+          user.setPassword(password);
+          return user.save()
+            .then(() => {
+              return updateUser(id, {
+                firstName,
+                middleName,
+                surName,
+              });
+            });
         } else {
           throw new Error('Текущий пароль указан неверно');
         }

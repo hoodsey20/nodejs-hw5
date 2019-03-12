@@ -2,7 +2,6 @@
 const {
   getUserByUsername,
 } = require('../../models/db.js');
-const psw = require('../../libs/password');
 
 
 const signIn = (req, res) => {
@@ -12,9 +11,7 @@ const signIn = (req, res) => {
     .then(user => {
       if (!user) throw new Error('Такого сочетания юзер/пароль нет');
 
-      const myUser = user.toObject();
-
-      if (psw.validPassword(myUser, password)) return res.json(myUser);
+      if (user.validPassword(password)) return res.json(user);
 
       throw new Error('Такого сочетания юзер/пароль нет');
     })

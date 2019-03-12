@@ -1,5 +1,4 @@
 const { Users, News } = require('./schema');
-const psw = require('../libs/password');
 
 module.exports.deleteNews = function(id) {
   return News.findByIdAndRemove({ _id: id });
@@ -41,9 +40,6 @@ module.exports.getUserByUsername = function(name) {
 
 module.exports.createUser = function(data) {
   const { username, firstName, middleName, surName, password } = data;
-  const pass = psw.setPassword(password);
-  const hash = pass.hash;
-  const salt = pass.salt;
 
   const User = new Users({
     access_token: '1',
@@ -51,8 +47,6 @@ module.exports.createUser = function(data) {
     firstName,
     middleName,
     surName,
-    hash,
-    salt,
     permission: {
       chat: {
         C: true,
@@ -74,6 +68,8 @@ module.exports.createUser = function(data) {
       },
     }
   });
+
+  User.setPassword(password);
 
   return User.save();
 };
