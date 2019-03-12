@@ -7,7 +7,7 @@ const {
 const updateUserPermission = (req, res) => {
   const id = req.params.id;
   const { permission } = JSON.parse(req.body);
-  console.log('flat(permission)', flat({ permission }));
+
   updateUser(id, flat({ permission }))
     .then(updatedData => {
       res.json(updatedData);

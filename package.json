@@ -10,6 +10,7 @@
     "express": "^4.16.4",
     "flat": "^4.1.0",
     "formidable": "^1.2.1",
+    "lodash.find": "^4.6.0",
     "mongoose": "^5.4.17",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10"

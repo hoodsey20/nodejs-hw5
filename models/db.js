@@ -6,8 +6,8 @@ module.exports.deleteNews = function(id) {
 };
 
 module.exports.updateNews = function(id, data) {
-  const { date, text, theme } = data;
-  return News.findOneAndUpdate({ _id: id }, { date, text, theme });
+  const { date, text, theme, userId } = data;
+  return News.findOneAndUpdate({ _id: id }, { date, text, theme, user: userId });
 };
 
 module.exports.createNews = function(data) {
@@ -93,3 +93,6 @@ module.exports.deleteUser = function (id) {
   return Users.findOneAndRemove({ _id: id });
 };
 
+module.exports.findUsersMatchedById = function (ids) {
+  return Users.find({ _id: { $in: ids } });
+};

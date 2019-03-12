@@ -1,15 +1,12 @@
 const {
   createNews,
-  getNews,
 } = require('../../models/db.js');
 
 
 const addNews = (req, res) => {
   createNews(JSON.parse(req.body))
-    .then(() => getNews())
-    .then((newsData) => {
-			console.log('TCL: post -> newsData', newsData)
-      res.json(newsData);
+    .then(() => {
+      res.redirect(301, '/api/getNews');
     })
     .catch(e => {
       res.status(500);
