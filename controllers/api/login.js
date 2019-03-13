@@ -15,10 +15,10 @@ const signIn = (req, res, next) => {
         user.setToken(token);
         user.save()
           .then(user => {
-            res.cookie('token', token, {
+            res.cookie('access_token', token, {
               maxAge: 7 * 60 * 60 * 1000,
               path: '/',
-              httpOnly: true,
+              httpOnly: false,
             });
             return res.json(user);
           })

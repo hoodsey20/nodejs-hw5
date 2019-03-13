@@ -4,7 +4,7 @@ const router = express.Router();
 const ctrl = require('../controllers');
 
 
-router.all('*', ctrl.token);
+router.post('/api/authFromToken', ctrl.token);
 
 router.post('/api/newNews', ctrl.newNews);
 router.get('/api/getNews', ctrl.getNews);
