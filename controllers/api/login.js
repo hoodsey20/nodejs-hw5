@@ -1,24 +1,33 @@
+const passport = require('passport');
+const uuidv4 = require('uuid/v4');
 
-const {
-  getUserByUsername,
-} = require('../../models/db.js');
+const signIn = (req, res, next) => {
+  req.body = JSON.parse(req.body);
+  passport.authenticate('local', (err, user) => {
+    if (err) return next(err);
+    if (!user) return next(new Error('неправильные логин/пароль'));
 
+    req.logIn(user, err => {
+      if (err) return next(err);
 
-const signIn = (req, res) => {
-  const { username, password } = JSON.parse(req.body);
-
-  getUserByUsername(username)
-    .then(user => {
-      if (!user) throw new Error('Такого сочетания юзер/пароль нет');
-
-      if (user.validPassword(password)) return res.json(user);
-
-      throw new Error('Такого сочетания юзер/пароль нет');
-    })
-    .catch(e => {
-      res.status(500);
-      res.json({ status: false, msg: `Ошибка сервера: ${e.message}` });
+      if (req.body.remembered) {
+        const token = uuidv4();
+        user.setToken(token);
+        user.save()
+          .then(user => {
+            res.cookie('token', token, {
+              maxAge: 7 * 60 * 60 * 1000,
+              path: '/',
+              httpOnly: true,
+            });
+            return res.json(user);
+          })
+          .catch(e => next(e));
+      } else {
+        return res.json(user);
+      }
     });
+  })(req, res, next);
 };
 
 module.exports = signIn;

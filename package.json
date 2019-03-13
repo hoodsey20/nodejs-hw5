@@ -5,9 +5,12 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.3",
+    "cookie-parser": "^1.4.4",
     "cross-env": "^5.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "flat": "^4.1.0",
     "formidable": "^1.2.1",
     "lodash.find": "^4.6.0",
@@ -15,7 +18,8 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.10",
     "passport": "^0.4.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {},
   "scripts": {

@@ -42,7 +42,7 @@ module.exports.createUser = function(data) {
   const { username, firstName, middleName, surName, password } = data;
 
   const User = new Users({
-    access_token: '1',
+    access_token: '',
     username,
     firstName,
     middleName,

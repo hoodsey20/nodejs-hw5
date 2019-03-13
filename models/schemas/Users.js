@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    access_token: { type: String , required: true },
+    access_token: String,
     hash: { type: String , required: true },
     salt: { type: String , required: true },
     username: {
@@ -50,7 +50,6 @@ userSchema.methods.toJSON = function() {
   delete obj.salt;
   delete obj._id;
   delete obj.__v;
-  obj.access_token = '1';
   return obj;
 };
 
@@ -66,6 +65,10 @@ userSchema.methods.validPassword = function(password) {
     .pbkdf2Sync(password, this.salt, 1000, 512, 'sha512')
     .toString('hex');
   return hash === this.hash;
+};
+
+userSchema.methods.setToken = function(token) {
+  this.access_token = token;
 };
 
 userSchema.set('toJSON', { virtuals: true });
