@@ -49,22 +49,22 @@ module.exports.createUser = function(data) {
     surName,
     permission: {
       chat: {
-        C: true,
-        D: true,
+        C: false,
+        D: false,
         R: true,
-        U: true,
+        U: false,
       },
       news: {
-        C: true,
-        D: true,
+        C: false,
+        D: false,
         R: true,
-        U: true,
+        U: false,
       },
       setting: {
-        C: true,
-        D: true,
+        C: false,
+        D: false,
         R: true,
-        U: true,
+        U: false,
       },
     }
   });

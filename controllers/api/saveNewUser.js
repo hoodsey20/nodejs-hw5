@@ -18,7 +18,6 @@ const signUp = (req, res, next) => {
     })
     .then(newUser => res.json(newUser))
     .catch((err) => {
-			console.log('TCL: signUp -> err', err.message);
       next(err);
     });
 };
