@@ -3,21 +3,23 @@ const {
   createUser,
 } = require('../../models/db.js');
 
-const signUp = (req, res) => {
+const signUp = (req, res, next) => {
   const { username } = JSON.parse(req.body);
 
   getUserByUsername(username)
     .then(user => {
       if (user) {
-        return res.json({ status: false, msg: 'Такой юзер уже существует' });
+        res.status(500);
+        res.json({ status: false, msg: 'Такой юзер уже существует' });
+        return;
       }
 
       return createUser(JSON.parse(req.body));
     })
     .then(newUser => res.json(newUser))
     .catch((err) => {
-      res.status(500);
-      res.json({ status: false, msg: err.message });
+			console.log('TCL: signUp -> err', err.message);
+      next(err);
     });
 };
 

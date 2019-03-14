@@ -20,11 +20,13 @@ const signIn = (req, res, next) => {
               path: '/',
               httpOnly: false,
             });
-            return res.json(user);
+            res.json(user);
+            return;
           })
           .catch(e => next(e));
       } else {
-        return res.json(user);
+        res.json(user);
+        return;
       }
     });
   })(req, res, next);

@@ -10,7 +10,10 @@ const get = (req, res) => {
 
   getNews()
     .then(data => {
-      if (!data.length) return res.json(data);
+      if (!data.length) {
+        res.json(data);
+        return;
+      }
 
       const authors = [];
       newsData = data.map(item => item.toObject());
