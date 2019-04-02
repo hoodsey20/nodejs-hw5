@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -13,8 +14,6 @@ const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
 
-
-
 const config = require('./config.json');
 require('./models');
 
@@ -26,8 +25,8 @@ app.use(cookieParser());
 app.use(
   session({
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    secret: 'key-secret',
-    key: 'session-key',
+    secret: process.env.SESSION_SECRET,
+    key: process.env.SESSION_KEY,
     cookie: {
       path: '/',
       httpOnly: true,

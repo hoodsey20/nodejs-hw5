@@ -21,6 +21,7 @@
 .DS_Store
 .project
 .settings
+.env
 .tmproj
 Thumbs.db
 
